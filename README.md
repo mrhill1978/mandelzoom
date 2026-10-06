@@ -42,6 +42,7 @@ Press any key to quit.
 | `-r N` | Fixed render downscale in graphics mode; `1` is full resolution. By default it adapts to hold the frame rate. |
 | `-b` | Force half-block mode even if the terminal can show images. |
 | `-v` | Print the mode, resolution, and frame rate on exit. |
+| `-V` | Print the version and exit. |
 
 ## How it works
 

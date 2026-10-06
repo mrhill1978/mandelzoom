@@ -10,7 +10,7 @@
 // Any key quits.
 //
 // Build: cc -O3 -march=native -fopenmp -o mandelzoom mandelzoom.c -lm
-// Usage: mandelzoom [-s zoom_per_frame] [-f fps] [-r downscale] [-b] [-v]
+// Usage: mandelzoom [-s zoom_per_frame] [-f fps] [-r downscale] [-b] [-v] [-V]
 
 #define _GNU_SOURCE
 #include <fcntl.h>
@@ -25,6 +25,10 @@
 #include <termios.h>
 #include <time.h>
 #include <unistd.h>
+
+#ifndef VERSION
+#define VERSION "0.1.0"
+#endif
 
 static const struct { double x, y; } targets[] = {
 	{ -0.743643887037151,  0.131825904205330 }, // seahorse valley
@@ -337,7 +341,8 @@ static void usage(const char *argv0)
 		"  -r N      fixed render downscale in graphics mode, 1 = full res\n"
 		"            (default: adapt to hold the frame rate)\n"
 		"  -b        force text blocks even if the terminal can show images\n"
-		"  -v        print mode and stats on exit\n", argv0);
+		"  -v        print mode and stats on exit\n"
+		"  -V        print version and exit\n", argv0);
 	exit(2);
 }
 
@@ -345,13 +350,14 @@ int main(int argc, char **argv)
 {
 	double zoom = 0.985, fps = 30, fixed_div = 0;
 	int force_blocks = 0, verbose = 0, opt;
-	while ((opt = getopt(argc, argv, "s:f:r:bvh")) != -1) {
+	while ((opt = getopt(argc, argv, "s:f:r:bvVh")) != -1) {
 		switch (opt) {
 		case 's': zoom = atof(optarg); break;
 		case 'f': fps = atof(optarg); break;
 		case 'r': fixed_div = atof(optarg); if (fixed_div < 1) usage(argv[0]); break;
 		case 'b': force_blocks = 1; break;
 		case 'v': verbose = 1; break;
+		case 'V': puts("mandelzoom " VERSION); return 0;
 		default: usage(argv[0]);
 		}
 	}
