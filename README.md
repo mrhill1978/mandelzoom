@@ -15,17 +15,22 @@ The images above are frames rendered with mandelzoom's own drawing code.
 
 ## Build
 
-You need a C compiler. OpenMP is optional but spreads the work across all
-your CPU cores.
+You need a C compiler and `make`. OpenMP is optional but spreads the work
+across all your CPU cores.
 
 ```sh
-cc -O3 -march=native -fopenmp -o mandelzoom mandelzoom.c -lm
+make
+make install PREFIX=$HOME/.local   # or: sudo make install  (to /usr/local)
 ```
 
-Without OpenMP (for example Apple's clang), drop `-fopenmp`. It still works,
-on one core.
+`make uninstall` (with the same `PREFIX`) removes it again.
 
-Then put `mandelzoom` somewhere on your `PATH`, such as `~/.local/bin`.
+Without OpenMP (for example Apple's clang), build with `make OPENMP=`. It
+still works, on one core.
+
+The default build is tuned for the machine it's built on (`-march=native`).
+Set `CFLAGS` to override that, for example when packaging. `DESTDIR` is
+supported too.
 
 ## Usage
 
