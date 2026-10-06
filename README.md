@@ -74,7 +74,7 @@ Press any key to quit.
 | Ghostty | Real pixels (shared memory) |
 | Alacritty and others | Half-blocks; needs 24-bit color |
 
-Tested on Linux. It should build on macOS too, but that hasn't been tested.
+Tested on Linux. Tested on MacOS as well, with the build flag of without OpenMP, `make OPENMP=`. 
 
 ## License
 
